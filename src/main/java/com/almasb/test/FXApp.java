@@ -9,14 +9,11 @@ import javafx.stage.Stage;
 
 import java.util.Locale;
 
-/**
- * @author Almas Baimagambetov (almaslvl@gmail.com)
- */
 public class FXApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Locale.setDefault(Locale.ENGLISH);
-        Parent root = FXMLLoader.load(getClass().getResource("startmenu.fxml"));
+        Parent root = FXMLLoader.load(FXApp.class.getClassLoader().getResource("startmenu.fxml"));
         stage.setScene(new Scene(root));
         stage.setTitle("DataFrame");
         stage.show();

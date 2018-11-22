@@ -19,7 +19,7 @@
                 <Font size="18.0" />
               </font>
             </Label>
-                <Button layoutX="309.0" layoutY="38.0" mnemonicParsing="false"  prefHeight="26.0" prefWidth="124.0" text="Load File" AnchorPane.topAnchor="31.0">
+                <Button fx:id="load" onAction="#handleFileLoadAction" layoutX="309.0" layoutY="38.0" mnemonicParsing="false"  prefHeight="26.0" prefWidth="124.0" text="Load File" AnchorPane.topAnchor="31.0">
                    <effect>
                       <DropShadow />
                    </effect>
@@ -29,13 +29,13 @@
                       <Font size="18.0" />
                    </font>
                 </Label>
-                <Button disable="true" layoutX="54.0" layoutY="126.0" mnemonicParsing="false" text="Minimum" AnchorPane.topAnchor="125.0" />
-                <Button disable="true" layoutX="145.0" layoutY="125.0" mnemonicParsing="false" text="Maximum" AnchorPane.topAnchor="125.0" />
-                <Button disable="true" layoutX="240.0" layoutY="126.0" mnemonicParsing="false" text="Sum" AnchorPane.topAnchor="125.0" />
-                <Button disable="true" layoutX="295.0" layoutY="125.0" mnemonicParsing="false" text="Variance" AnchorPane.topAnchor="125.0" />
-                <Button disable="true" layoutX="382.0" layoutY="126.0" mnemonicParsing="false" text="Standard deviation" AnchorPane.topAnchor="125.0" />
-                <Button disable="true" layoutX="536.0" layoutY="125.0" mnemonicParsing="false" text="Mean" AnchorPane.topAnchor="125.0" />
-                <Label alignment="CENTER" disable="true" layoutY="289.0" prefHeight="16.0" prefWidth="257.0" text="Draw char for chosen columns:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <Button fx:id="min" onAction="#min" disable="true" layoutX="54.0" layoutY="126.0" mnemonicParsing="false" text="Minimum" AnchorPane.topAnchor="125.0" />
+                <Button fx:id="max" onAction="#max" disable="true" layoutX="145.0" layoutY="125.0" mnemonicParsing="false" text="Maximum" AnchorPane.topAnchor="125.0" />
+                <Button fx:id="sum" onAction="#sum" disable="true" layoutX="240.0" layoutY="126.0" mnemonicParsing="false" text="Sum" AnchorPane.topAnchor="125.0" />
+                <Button fx:id="var" onAction="#var" disable="true" layoutX="295.0" layoutY="125.0" mnemonicParsing="false" text="Variance" AnchorPane.topAnchor="125.0" />
+                <Button fx:id="std" onAction="#std" disable="true" layoutX="382.0" layoutY="126.0" mnemonicParsing="false" text="Standard deviation" AnchorPane.topAnchor="125.0" />
+                <Button fx:id="mean" onAction="#mean" disable="true" layoutX="536.0" layoutY="125.0" mnemonicParsing="false" text="Mean" AnchorPane.topAnchor="125.0" />
+                <Label alignment="CENTER" layoutY="289.0" prefHeight="16.0" prefWidth="257.0" text="Draw char for chosen columns:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                    <font>
                       <Font size="18.0" />
                    </font>
@@ -45,8 +45,8 @@
                       <Font size="18.0" />
                    </font>
                 </Label>
-                <ChoiceBox disable="true" layoutX="401.0" layoutY="238.0" prefWidth="150.0" AnchorPane.bottomAnchor="136.0" AnchorPane.topAnchor="238.0" />
-                <ChoiceBox disable="true" layoutX="145.0" layoutY="238.0" prefWidth="150.0" AnchorPane.bottomAnchor="136.0" AnchorPane.topAnchor="238.0" />
+                <ChoiceBox fx:id="col1" disable="true" layoutX="401.0" layoutY="238.0" prefWidth="150.0" AnchorPane.bottomAnchor="136.0" AnchorPane.topAnchor="238.0" />
+                <ChoiceBox fx:id="col2" disable="true" layoutX="145.0" layoutY="238.0" prefWidth="150.0" AnchorPane.bottomAnchor="136.0" AnchorPane.topAnchor="238.0" />
                 <Label layoutX="64.0" layoutY="243.0" text="Axis X:" AnchorPane.topAnchor="238.0">
                    <font>
                       <Font size="18.0" />
@@ -57,6 +57,11 @@
                       <Font size="18.0" />
                    </font>
                 </Label>
+                <Button fx:id="draw" disable="true" layoutX="289.0" layoutY="322.0" mnemonicParsing="false" text="Draw">
+                   <font>
+                      <Font size="18.0" />
+                   </font>
+                </Button>
           </children>
         </AnchorPane>
       </children>
