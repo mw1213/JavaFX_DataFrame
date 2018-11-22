@@ -15,10 +15,16 @@
 
     <dependencies>
         <dependency>
+            <groupId>agh</groupId>
+            <artifactId>agh</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>11</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -93,7 +99,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.almasb.test.FXApp</mainClass>
+                    <mainClass>com.almasb.test.FXAppLauncher</mainClass>
                 </configuration>
             </plugin>
 

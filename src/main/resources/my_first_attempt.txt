@@ -1,0 +1,49 @@
+
+        primaryStage.setTitle("Dataframe");
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+
+
+        Button btn = new Button("Load file");
+        HBox hbBtn = new HBox(10);
+        hbBtn.setAlignment(Pos.TOP_CENTER);
+        hbBtn.getChildren().add(btn);
+        grid.add(hbBtn, 1, 4);
+
+
+        final Text actiontarget = new Text();
+        grid.add(actiontarget, 1, 6);
+
+        Stage stage = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+
+
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                actiontarget.setFill(Color.FIREBRICK);
+                actiontarget.setText("Load file button pressed");
+                File file = fileChooser.showOpenDialog(stage);
+                DataFrame dataFrame = null;
+                try {
+                    dataFrame = new DataFrame(file.getAbsolutePath(),new Class[]{StringValue.class, DateTimeValue.class, FloatValue.class, FloatValue.class}, true);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                } catch (WrongTypeInColumnException e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    System.out.println(dataFrame.grupby(new String[]{"id"}).max());
+                } catch (WrongTypeInColumnException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+
+        Scene scene = new Scene(grid, 300, 275);
+        primaryStage.setScene(scene);
+        primaryStage.show();
