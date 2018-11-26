@@ -45,34 +45,41 @@ public class FXAppControler {
         } catch (IOException e1) {
             e1.printStackTrace();
         } catch (WrongTypeInColumnException e1) {
-            Stage stage1 = new Stage();
+            FXMLLoader loader = new FXMLLoader(MathoperationControler.class.getClassLoader().getResource("error.fxml"));
+            ErrorControler controler = new ErrorControler();
+            loader.setController(controler);
+            Stage stage1= new Stage();
+
             Parent root = null;
             try {
-                root = FXMLLoader.load(FXApp.class.getClassLoader().getResource("error.fxml"));
-            } catch (IOException e2) {
-                e2.printStackTrace();
+                root = loader.load();
+                controler.setMessage(e1.getStringMessage());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            stage1.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            stage1.setScene(scene);
             stage1.setTitle("ERROR");
             stage1.show();
         }
     }
 
     public void min(ActionEvent actionEvent) {
-        System.out.println(MathoperationControler.class.getClassLoader().getResource("mathoperation.fxml").toString());
         FXMLLoader loader = new FXMLLoader(MathoperationControler.class.getClassLoader().getResource("mathoperation.fxml"));
         MathoperationControler controler = new MathoperationControler();
         controler.setDataFrame(dataFrame);
         controler.setName(new String("Min"));
-        controler.setText();
         loader.setController(controler);
         Stage stage1= new Stage();
-        Scene scene = null;
+
+        Parent root = null;
         try {
-            scene = new Scene(loader.load());
+            root = loader.load();
+            controler.setText();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Scene scene = new Scene(root);
         stage1.setScene(scene);
         stage1.setTitle("Minimum");
         stage1.show();
@@ -80,147 +87,107 @@ public class FXAppControler {
     }
 
     public void max(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(MathoperationControler.class.getClassLoader().getResource("mathoperation.fxml"));
+        MathoperationControler controler = new MathoperationControler();
+        controler.setDataFrame(dataFrame);
+        controler.setName(new String("Max"));
+        loader.setController(controler);
+        Stage stage1= new Stage();
+
+        Parent root = null;
         try {
-            Stage stage1 = new Stage();
-            Locale.setDefault(Locale.ENGLISH);
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(FXApp.class.getClassLoader().getResource("mathoperation.fxml"));
-            } catch (IOException e2) {
-                e2.printStackTrace();
-            }
-            Scene scene =new Scene(root);
-            stage1.setScene(scene);
-            stage1.setTitle("Max values in DataFrame");
-            stage1.show();
-            System.out.println(dataFrame.grupby(new String[]{"id"}).max());
-        } catch (WrongTypeInColumnException e) {
-            Stage stage = new Stage();
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(FXApp.class.getClassLoader().getResource("error.fxml"));
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-            stage.setScene(new Scene(root));
-            stage.setTitle("ERROR");
-            stage.show();
+            root = loader.load();
+            controler.setText();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }
+        Scene scene = new Scene(root);
+        stage1.setScene(scene);
+        stage1.setTitle("Maximum");
+        stage1.show();    }
 
     public void sum(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(MathoperationControler.class.getClassLoader().getResource("mathoperation.fxml"));
+        MathoperationControler controler = new MathoperationControler();
+        controler.setDataFrame(dataFrame);
+        controler.setName(new String("Sum"));
+        loader.setController(controler);
+        Stage stage1= new Stage();
+
+        Parent root = null;
         try {
-            Stage stage1 = new Stage();
-            Locale.setDefault(Locale.ENGLISH);
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(FXApp.class.getClassLoader().getResource("mathoperation.fxml"));
-            } catch (IOException e2) {
-                e2.printStackTrace();
-            }
-            Scene scene =new Scene(root);
-            stage1.setScene(scene);
-            stage1.setTitle("Sum values in DataFrame");
-            stage1.show();
-            System.out.println(dataFrame.grupby(new String[]{"id"}).sum());
-        } catch (WrongTypeInColumnException e) {
-            Stage stage = new Stage();
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(FXApp.class.getClassLoader().getResource("error.fxml"));
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-            stage.setScene(new Scene(root));
-            stage.setTitle("ERROR");
-            stage.show();
+            root = loader.load();
+            controler.setText();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        Scene scene = new Scene(root);
+        stage1.setScene(scene);
+        stage1.setTitle("Sum");
+        stage1.show();
+
     }
 
     public void var(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(MathoperationControler.class.getClassLoader().getResource("mathoperation.fxml"));
+        MathoperationControler controler = new MathoperationControler();
+        controler.setDataFrame(dataFrame);
+        controler.setName(new String("Var"));
+        loader.setController(controler);
+        Stage stage1= new Stage();
+
+        Parent root = null;
         try {
-            Stage stage1 = new Stage();
-            Locale.setDefault(Locale.ENGLISH);
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(FXApp.class.getClassLoader().getResource("mathoperation.fxml"));
-            } catch (IOException e2) {
-                e2.printStackTrace();
-            }
-            Scene scene =new Scene(root);
-            stage1.setScene(scene);
-            stage1.setTitle("Variance values in DataFrame");
-            stage1.show();
-            System.out.println(dataFrame.grupby(new String[]{"id"}).var());
-        } catch (WrongTypeInColumnException e) {
-            Stage stage = new Stage();
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(FXApp.class.getClassLoader().getResource("error.fxml"));
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-            stage.setScene(new Scene(root));
-            stage.setTitle("ERROR");
-            stage.show();
+            root = loader.load();
+            controler.setText();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        Scene scene = new Scene(root);
+        stage1.setScene(scene);
+        stage1.setTitle("Variance");
+        stage1.show();
     }
 
     public void std(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(MathoperationControler.class.getClassLoader().getResource("mathoperation.fxml"));
+        MathoperationControler controler = new MathoperationControler();
+        controler.setDataFrame(dataFrame);
+        controler.setName(new String("Std"));
+        loader.setController(controler);
+        Stage stage1 = new Stage();
+
+        Parent root = null;
         try {
-            Stage stage1 = new Stage();
-            Locale.setDefault(Locale.ENGLISH);
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(FXApp.class.getClassLoader().getResource("mathoperation.fxml"));
-            } catch (IOException e2) {
-                e2.printStackTrace();
-            }
-            Scene scene =new Scene(root);
-            stage1.setScene(scene);
-            stage1.setTitle("Standard deviation values in DataFrame");
-            stage1.show();
-            System.out.println(dataFrame.grupby(new String[]{"id"}).std());
-        } catch (WrongTypeInColumnException e) {
-            Stage stage = new Stage();
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(FXApp.class.getClassLoader().getResource("error.fxml"));
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-            stage.setScene(new Scene(root));
-            stage.setTitle("ERROR");
-            stage.show();
+            root = loader.load();
+            controler.setText();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        Scene scene = new Scene(root);
+        stage1.setScene(scene);
+        stage1.setTitle("Standard deviation");
+        stage1.show();
     }
 
     public void mean(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(MathoperationControler.class.getClassLoader().getResource("mathoperation.fxml"));
+        MathoperationControler controler = new MathoperationControler();
+        controler.setDataFrame(dataFrame);
+        controler.setName(new String("Mean"));
+        loader.setController(controler);
+        Stage stage1= new Stage();
+
+        Parent root = null;
         try {
-            Stage stage1 = new Stage();
-            Locale.setDefault(Locale.ENGLISH);
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(FXApp.class.getClassLoader().getResource("mathoperation.fxml"));
-            } catch (IOException e2) {
-                e2.printStackTrace();
-            }
-            Scene scene =new Scene(root);
-            stage1.setScene(scene);
-            stage1.setTitle("Mean values in DataFrame");
-            stage1.show();
-            System.out.println(dataFrame.grupby(new String[]{"id"}).mean());
-        } catch (WrongTypeInColumnException e) {
-            Stage stage = new Stage();
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(FXApp.class.getClassLoader().getResource("error.fxml"));
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-            stage.setScene(new Scene(root));
-            stage.setTitle("ERROR");
-            stage.show();
+            root = loader.load();
+            controler.setText();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        Scene scene = new Scene(root);
+        stage1.setScene(scene);
+        stage1.setTitle("Mean");
+        stage1.show();
     }
 }
