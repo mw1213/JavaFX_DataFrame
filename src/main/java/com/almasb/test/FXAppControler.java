@@ -1,24 +1,48 @@
 package com.almasb.test;
 
+import dataframe.Column;
 import dataframe.DataFrame;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import myExceptions.WrongTypeInColumnException;
-import value.DateTimeValue;
-import value.FloatValue;
-import value.StringValue;
+import value.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.logging.XMLFormatter;
 
 public class FXAppControler {
 
+    /**
+     * dataFrame for other math operation and additional helpful variables connected to it
+     */
+    private String filePath;
+    public DataFrame dataFrame;
+    private int DataFrame_width;
+    private Class<? extends Value>[] types;
+    private String[] names;
+    private Column X_axis;
+    private Column Y_axis;
+
+
+    /**
+     * ObservableLists for choisBoxes: one is for addin types to dataframe, one for colNames for charts
+     */
+    private ObservableList<String> allTypesList = FXCollections.observableArrayList(
+            "DateTimeValue", "DoubleValue", "FloatValue","IntegerValue","StringValue");
+
+    private ObservableList<String> colNames = FXCollections.observableArrayList();
 
     public Button load;
     public Button min;
@@ -27,14 +51,38 @@ public class FXAppControler {
     public Button var;
     public Button std;
     public Button mean;
-    public DataFrame dataFrame;
+
+    public ChoiceBox col1;
+    public ChoiceBox col2;
+    public Button draw;
+
+    public ChoiceBox choise;
+    public Button add;
+    public Button create;
+    public Label created;
+    public TextField width;
+    public Button set_width;
+    public Button set_x;
+    public Button set_y;
 
     public void handleFileLoadAction(javafx.event.ActionEvent actionEvent) {
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
-        String filePath = fileChooser.showOpenDialog(stage).getAbsolutePath();
+
+        filePath = fileChooser.showOpenDialog(stage).getAbsolutePath();
+        choise.disableProperty().setValue(false);
+        add.disableProperty().setValue(false);
+        width.disableProperty().setValue(false);
+        set_width.disableProperty().setValue(false);
+        choise.setItems(allTypesList);
+
+    }
+
+    public void handleCreateDataFrame(javafx.event.ActionEvent actionEvent){
+
         try {
-            dataFrame = new DataFrame(filePath,new Class[]{StringValue.class, DateTimeValue.class, FloatValue.class, FloatValue.class}, true);
+            dataFrame = new DataFrame(filePath, types, true, 100);
+
             min.disableProperty().setValue(false);
             max.disableProperty().setValue(false);
             sum.disableProperty().setValue(false);
@@ -42,8 +90,35 @@ public class FXAppControler {
             std.disableProperty().setValue(false);
             mean.disableProperty().setValue(false);
             load.disableProperty().setValue(true);
+            col1.disableProperty().setValue(false);
+            col2.disableProperty().setValue(false);
+            draw.disableProperty().setValue(false);
+            set_x.disableProperty().setValue(false);
+            set_y.disableProperty().setValue(false);
+
+            names=dataFrame.getColumnsNames();
+            for (int i=0; i<names.length;i++){
+                colNames.add(names[i]);
+            }
+            col1.setItems(colNames);
+            col2.setItems(colNames);
         } catch (IOException e1) {
-            e1.printStackTrace();
+            FXMLLoader loader = new FXMLLoader(MathoperationControler.class.getClassLoader().getResource("error.fxml"));
+            ErrorControler controler = new ErrorControler();
+            loader.setController(controler);
+            Stage stage1= new Stage();
+
+            Parent root = null;
+            try {
+                root = loader.load();
+                controler.setMessage("You added wrong classes man!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scene scene = new Scene(root);
+            stage1.setScene(scene);
+            stage1.setTitle("ERROR");
+            stage1.show();
         } catch (WrongTypeInColumnException e1) {
             FXMLLoader loader = new FXMLLoader(MathoperationControler.class.getClassLoader().getResource("error.fxml"));
             ErrorControler controler = new ErrorControler();
@@ -62,6 +137,14 @@ public class FXAppControler {
             stage1.setTitle("ERROR");
             stage1.show();
         }
+        created.setVisible(true);
+        choise.disableProperty().setValue(true);
+        create.disableProperty().setValue(true);
+        add.disableProperty().setValue(true);
+        width.disableProperty().setValue(true);
+        set_width.disableProperty().setValue(true);
+
+
     }
 
     public void min(ActionEvent actionEvent) {
@@ -188,6 +271,60 @@ public class FXAppControler {
         Scene scene = new Scene(root);
         stage1.setScene(scene);
         stage1.setTitle("Mean");
+        stage1.show();
+    }
+
+    public void addColumnType(ActionEvent actionEvent) {
+        boolean flag=false;
+        for (int i=0;i<DataFrame_width;i++){
+            if(types[i]==null) {
+                flag=true;
+                if (choise.getValue()=="DateTimeValue") types[i]=DateTimeValue.class;
+                if (choise.getValue()=="DoubleValue") types[i]= DoubleValue.class;
+                if (choise.getValue()=="FloatValue") types[i]=FloatValue.class;
+                if (choise.getValue()=="IntegerValue") types[i]=IntegerValue.class;
+                if (choise.getValue()=="StringValue") types[i]=StringValue.class;
+                break;
+            }
+
+        }
+        if (types[DataFrame_width-1]!=null){
+            create.disableProperty().setValue(false);
+        }
+    }
+    public void setDataFrameWidth(ActionEvent actionEvent) {
+        DataFrame_width = Integer.parseInt(width.getText());
+        types = new Class[DataFrame_width];
+        names = new String[DataFrame_width];
+    }
+
+
+    public void set_x(ActionEvent actionEvent) {
+        X_axis = dataFrame.get(col2.getSelectionModel().getSelectedItem().toString());
+    }
+
+    public void set_y(ActionEvent actionEvent) {
+        Y_axis = dataFrame.get(col1.getSelectionModel().getSelectedItem().toString());
+    }
+
+    public void draw(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(ChartControler.class.getClassLoader().getResource("chart.fxml"));
+        ChartControler controler = new ChartControler();
+        controler.setDataFrame(dataFrame);
+        controler.set_x(X_axis);
+        controler.set_y(Y_axis);
+        loader.setController(controler);
+        Stage stage1= new Stage();
+        Parent root = null;
+        try {
+            root = loader.load();
+            controler.setChart();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        stage1.setScene(scene);
+        stage1.setTitle("Chart");
         stage1.show();
     }
 }

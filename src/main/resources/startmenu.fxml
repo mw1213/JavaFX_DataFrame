@@ -3,67 +3,98 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.GridPane?>
-<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="com.almasb.test.FXAppControler">
-    <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane alignment="center" hgap="10" prefHeight="455.0" prefWidth="640.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.almasb.test.FXAppControler">
+    <VBox prefHeight="506.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
       <children>
-        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+        <AnchorPane prefHeight="469.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
           <children>
             <Label alignment="CENTER" layoutX="73.0" layoutY="26.0" prefHeight="36.0" prefWidth="220.0" style="&#10;" text="Load file for DataFrame:" textAlignment="CENTER" textFill="#282828" wrapText="false" AnchorPane.leftAnchor="73.0" AnchorPane.topAnchor="26.0">
               <font>
                 <Font size="18.0" />
               </font>
             </Label>
-                <Button fx:id="load" onAction="#handleFileLoadAction" layoutX="309.0" layoutY="38.0" mnemonicParsing="false"  prefHeight="26.0" prefWidth="124.0" text="Load File" AnchorPane.topAnchor="31.0">
+                <Button fx:id="load" layoutX="309.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleFileLoadAction" prefHeight="26.0" prefWidth="124.0" text="Load File" AnchorPane.topAnchor="31.0">
                    <effect>
                       <DropShadow />
                    </effect>
                 </Button>
-                <Label alignment="CENTER" layoutX="73.0" layoutY="71.0" prefHeight="55.0" prefWidth="593.0" text="Basic statistic operations for loaded DataFrame:" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <Label alignment="CENTER" layoutX="-2.0" layoutY="166.0" prefHeight="55.0" prefWidth="593.0" text="Basic statistic operations for loaded DataFrame:" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                    <font>
                       <Font size="18.0" />
                    </font>
                 </Label>
-                <Button fx:id="min" onAction="#min" disable="true" layoutX="54.0" layoutY="126.0" mnemonicParsing="false" text="Minimum" AnchorPane.topAnchor="125.0" />
-                <Button fx:id="max" onAction="#max" disable="true" layoutX="145.0" layoutY="125.0" mnemonicParsing="false" text="Maximum" AnchorPane.topAnchor="125.0" />
-                <Button fx:id="sum" onAction="#sum" disable="true" layoutX="240.0" layoutY="126.0" mnemonicParsing="false" text="Sum" AnchorPane.topAnchor="125.0" />
-                <Button fx:id="var" onAction="#var" disable="true" layoutX="295.0" layoutY="125.0" mnemonicParsing="false" text="Variance" AnchorPane.topAnchor="125.0" />
-                <Button fx:id="std" onAction="#std" disable="true" layoutX="382.0" layoutY="126.0" mnemonicParsing="false" text="Standard deviation" AnchorPane.topAnchor="125.0" />
-                <Button fx:id="mean" onAction="#mean" disable="true" layoutX="536.0" layoutY="125.0" mnemonicParsing="false" text="Mean" AnchorPane.topAnchor="125.0" />
-                <Label alignment="CENTER" layoutY="289.0" prefHeight="16.0" prefWidth="257.0" text="Draw char for chosen columns:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <Button fx:id="min" disable="true" layoutX="46.0" layoutY="221.0" mnemonicParsing="false" onAction="#min" text="Minimum" AnchorPane.topAnchor="221.0" />
+                <Button fx:id="max" disable="true" layoutX="143.0" layoutY="222.0" mnemonicParsing="false" onAction="#max" text="Maximum" AnchorPane.topAnchor="221.0" />
+                <Button fx:id="sum" disable="true" layoutX="237.0" layoutY="222.0" mnemonicParsing="false" onAction="#sum" text="Sum" AnchorPane.topAnchor="221.0" />
+                <Button fx:id="var" disable="true" layoutX="300.0" layoutY="222.0" mnemonicParsing="false" onAction="#var" text="Variance" AnchorPane.topAnchor="221.0" />
+                <Button fx:id="std" disable="true" layoutX="386.0" layoutY="221.0" mnemonicParsing="false" onAction="#std" text="Standard deviation" AnchorPane.topAnchor="221.0" />
+                <Button fx:id="mean" disable="true" layoutX="537.0" layoutY="221.0" mnemonicParsing="false" onAction="#mean" text="Mean" AnchorPane.topAnchor="221.0" />
+                <Label alignment="CENTER" layoutX="1.0" layoutY="382.0" prefHeight="16.0" prefWidth="257.0" text="Draw char for chosen columns:" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0">
                    <font>
                       <Font size="18.0" />
                    </font>
                 </Label>
-                <Label alignment="CENTER" layoutX="228.0" layoutY="192.0" text="Chose columns for char drawing:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <Label alignment="CENTER" layoutY="285.0" text="Chose columns for char drawing:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                    <font>
                       <Font size="18.0" />
                    </font>
                 </Label>
-                <ChoiceBox fx:id="col1" disable="true" layoutX="401.0" layoutY="238.0" prefWidth="150.0" AnchorPane.bottomAnchor="136.0" AnchorPane.topAnchor="238.0" />
-                <ChoiceBox fx:id="col2" disable="true" layoutX="145.0" layoutY="238.0" prefWidth="150.0" AnchorPane.bottomAnchor="136.0" AnchorPane.topAnchor="238.0" />
-                <Label layoutX="64.0" layoutY="243.0" text="Axis X:" AnchorPane.topAnchor="238.0">
+                <ChoiceBox fx:id="col1" disable="true" layoutX="400.0" layoutY="319.0" prefWidth="150.0" AnchorPane.bottomAnchor="110.0" />
+                <ChoiceBox fx:id="col2" disable="true" layoutX="149.0" layoutY="319.0" prefWidth="150.0" />
+                <Label layoutX="63.0" layoutY="322.0" text="Axis X:" AnchorPane.topAnchor="322.0">
                    <font>
                       <Font size="18.0" />
                    </font>
                 </Label>
-                <Label layoutX="325.0" layoutY="243.0" text="Axis Y:" AnchorPane.topAnchor="238.0">
+                <Label layoutX="323.0" layoutY="317.0" text="Axis Y:" AnchorPane.topAnchor="317.0">
                    <font>
                       <Font size="18.0" />
                    </font>
                 </Label>
-                <Button fx:id="draw" disable="true" layoutX="289.0" layoutY="322.0" mnemonicParsing="false" text="Draw">
+                <Button fx:id="draw" onAction="#draw" disable="true" layoutX="289.0" layoutY="408.0" mnemonicParsing="false" text="Draw">
                    <font>
                       <Font size="18.0" />
                    </font>
                 </Button>
+               <Label layoutX="68.0" layoutY="102.0" prefHeight="55.0" prefWidth="211.0" text="Add column types of dataframe:" wrapText="true">
+                  <font>
+                     <Font size="17.0" />
+                  </font>
+               </Label>
+               <ChoiceBox fx:id="choise" disable="true" layoutX="263.0" layoutY="112.0" prefWidth="150.0" />
+               <Button fx:id="add" disable="true" layoutX="431.0" layoutY="112.0" mnemonicParsing="false" onAction="#addColumnType" text="Add" />
+               <Button fx:id="create" disable="true" layoutX="292.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleCreateDataFrame" text="Create DataFrame" />
+               <Label fx:id="created" layoutX="488.0" layoutY="138.0" prefHeight="45.0" prefWidth="124.0" text="DataFrame Created" textFill="#02ee2d" visible="false" wrapText="true">
+                  <font>
+                     <Font size="18.0" />
+                  </font>
+               </Label>
+               <Label layoutX="68.0" layoutY="77.0" text="Number of columns:">
+                  <font>
+                     <Font size="18.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="width" disable="true" layoutX="257.0" layoutY="75.0" prefHeight="26.0" prefWidth="44.0" />
+               <Button fx:id="set_width" disable="true" layoutX="318.0" layoutY="74.0" mnemonicParsing="false" onAction="#setDataFrameWidth" text="Set" />
+               <Button fx:id="set_x" onAction="#set_x" disable="true" layoutX="215.0" layoutY="345.0" mnemonicParsing="false" text="Set X-axis" />
+               <Button fx:id="set_y" onAction="#set_y" disable="true" layoutX="467.0" layoutY="345.0" mnemonicParsing="false" text="Set Y-axis" />
           </children>
         </AnchorPane>
       </children>
     </VBox>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
 </GridPane>
