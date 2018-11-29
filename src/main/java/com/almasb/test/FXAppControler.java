@@ -8,10 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import myExceptions.WrongTypeInColumnException;
@@ -19,11 +16,20 @@ import value.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.XMLFormatter;
 
 public class FXAppControler {
 
+    public TextArea showColumns;
+    public Button resetColumns;
+    public Button resetGrupBy;
+    public TextArea showGrupBy;
+    public ChoiceBox choiseGrupBy;
+    public Button setGrupBy;
+    public Button addGrupBy;
     /**
      * dataFrame for other math operation and additional helpful variables connected to it
      */
@@ -34,7 +40,8 @@ public class FXAppControler {
     private String[] names;
     private Column X_axis;
     private Column Y_axis;
-
+    private List<String> grupByList;
+    private String[] grupByColumnForm;
 
     /**
      * ObservableLists for choisBoxes: one is for addin types to dataframe, one for colNames for charts
@@ -83,18 +90,6 @@ public class FXAppControler {
         try {
             dataFrame = new DataFrame(filePath, types, true, 100);
 
-            min.disableProperty().setValue(false);
-            max.disableProperty().setValue(false);
-            sum.disableProperty().setValue(false);
-            var.disableProperty().setValue(false);
-            std.disableProperty().setValue(false);
-            mean.disableProperty().setValue(false);
-            load.disableProperty().setValue(true);
-            col1.disableProperty().setValue(false);
-            col2.disableProperty().setValue(false);
-            draw.disableProperty().setValue(false);
-            set_x.disableProperty().setValue(false);
-            set_y.disableProperty().setValue(false);
 
             names=dataFrame.getColumnsNames();
             for (int i=0; i<names.length;i++){
@@ -102,6 +97,7 @@ public class FXAppControler {
             }
             col1.setItems(colNames);
             col2.setItems(colNames);
+            choiseGrupBy.setItems(colNames);
         } catch (IOException e1) {
             FXMLLoader loader = new FXMLLoader(MathoperationControler.class.getClassLoader().getResource("error.fxml"));
             ErrorControler controler = new ErrorControler();
@@ -143,9 +139,13 @@ public class FXAppControler {
         add.disableProperty().setValue(true);
         width.disableProperty().setValue(true);
         set_width.disableProperty().setValue(true);
-
+        choiseGrupBy.disableProperty().setValue(false);
+        addGrupBy.disableProperty().setValue(false);
+        resetColumns.disableProperty().setValue(true);
 
     }
+
+
 
     public void min(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(MathoperationControler.class.getClassLoader().getResource("mathoperation.fxml"));
@@ -158,10 +158,11 @@ public class FXAppControler {
         Parent root = null;
         try {
             root = loader.load();
-            controler.setText();
+            controler.setText(grupByColumnForm);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         Scene scene = new Scene(root);
         stage1.setScene(scene);
         stage1.setTitle("Minimum");
@@ -180,7 +181,7 @@ public class FXAppControler {
         Parent root = null;
         try {
             root = loader.load();
-            controler.setText();
+            controler.setText(grupByColumnForm);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -200,7 +201,7 @@ public class FXAppControler {
         Parent root = null;
         try {
             root = loader.load();
-            controler.setText();
+            controler.setText(grupByColumnForm);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -222,7 +223,7 @@ public class FXAppControler {
         Parent root = null;
         try {
             root = loader.load();
-            controler.setText();
+            controler.setText(grupByColumnForm);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -243,7 +244,7 @@ public class FXAppControler {
         Parent root = null;
         try {
             root = loader.load();
-            controler.setText();
+            controler.setText(grupByColumnForm);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -264,7 +265,7 @@ public class FXAppControler {
         Parent root = null;
         try {
             root = loader.load();
-            controler.setText();
+            controler.setText(grupByColumnForm);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -275,15 +276,29 @@ public class FXAppControler {
     }
 
     public void addColumnType(ActionEvent actionEvent) {
-        boolean flag=false;
+        resetColumns.disableProperty().setValue(false);
         for (int i=0;i<DataFrame_width;i++){
             if(types[i]==null) {
-                flag=true;
-                if (choise.getValue()=="DateTimeValue") types[i]=DateTimeValue.class;
-                if (choise.getValue()=="DoubleValue") types[i]= DoubleValue.class;
-                if (choise.getValue()=="FloatValue") types[i]=FloatValue.class;
-                if (choise.getValue()=="IntegerValue") types[i]=IntegerValue.class;
-                if (choise.getValue()=="StringValue") types[i]=StringValue.class;
+                if (choise.getValue()=="DateTimeValue"){
+                    types[i]=DateTimeValue.class;
+                    showColumns.setText(showColumns.getText()+" "+ types[i]);
+                }
+                if (choise.getValue()=="DoubleValue"){
+                    types[i]= DoubleValue.class;
+                    showColumns.setText(showColumns.getText()+" "+ types[i]);
+                }
+                if (choise.getValue()=="FloatValue") {
+                    types[i]=FloatValue.class;
+                    showColumns.setText(showColumns.getText()+" "+ types[i]);
+                }
+                if (choise.getValue()=="IntegerValue"){
+                    types[i]=IntegerValue.class;
+                    showColumns.setText(showColumns.getText()+" "+ types[i]);
+                }
+                if (choise.getValue()=="StringValue") {
+                    types[i]=StringValue.class;
+                    showColumns.setText(showColumns.getText()+" "+ types[i]);
+                }
                 break;
             }
 
@@ -296,6 +311,50 @@ public class FXAppControler {
         DataFrame_width = Integer.parseInt(width.getText());
         types = new Class[DataFrame_width];
         names = new String[DataFrame_width];
+        grupByList = new ArrayList<>();
+    }
+
+    public void addToGrupBy(ActionEvent actionEvent) {
+        setGrupBy.disableProperty().setValue(false);
+        resetGrupBy.disableProperty().setValue(false);
+        grupByList.add(choiseGrupBy.getValue().toString());
+        showGrupBy.setText(showGrupBy.getText() +" " + choiseGrupBy.getValue().toString());
+    }
+
+
+    public void setGrupBy(ActionEvent actionEvent) {
+        grupByColumnForm = new String[grupByList.size()];
+        for (int i=0; i<grupByList.size();i++){
+            grupByColumnForm[i]=grupByList.get(i);
+        }
+        min.disableProperty().setValue(false);
+        max.disableProperty().setValue(false);
+        sum.disableProperty().setValue(false);
+        var.disableProperty().setValue(false);
+        std.disableProperty().setValue(false);
+        mean.disableProperty().setValue(false);
+        load.disableProperty().setValue(true);
+        col1.disableProperty().setValue(false);
+        col2.disableProperty().setValue(false);
+        draw.disableProperty().setValue(false);
+        set_x.disableProperty().setValue(false);
+        set_y.disableProperty().setValue(false);
+
+    }
+
+    public void resetGrupBy(ActionEvent actionEvent) {
+        setGrupBy.disableProperty().setValue(true);
+        grupByList.clear();
+        showGrupBy.setText("");
+    }
+
+    public void resetColumns(ActionEvent actionEvent) {
+        create.disableProperty().setValue(true);
+        for (int i = 0; i<DataFrame_width; i++){
+            types[i]=null;
+        }
+
+        showColumns.setText("");
     }
 
 
@@ -327,4 +386,6 @@ public class FXAppControler {
         stage1.setTitle("Chart");
         stage1.show();
     }
+
+
 }

@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" >
-   <children>
-      <Label fx:id="message" alignment="TOP_LEFT" layoutY="55.0" prefHeight="345.0" prefWidth="600.0" text="There should be printed data for chosen operation" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <Label fx:id="operation" prefHeight="41.0" prefWidth="600.0" text="Dataframe " textFill="#21fc00"
-             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+<BorderPane prefHeight="310.0" prefWidth="703.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <ScrollPane BorderPane.alignment="CENTER">
+         <content>
+            <Label fx:id="message" alignment="TOP_LEFT" prefHeight="365.0" prefWidth="590.0" text="There should be printed data for chosen operation" wrapText="true" />
+         </content>
+      </ScrollPane>
+   </center>
+   <top>
+      <Label fx:id="operation" prefHeight="41.0" prefWidth="600.0" text="Dataframe " textFill="#21fc00" BorderPane.alignment="CENTER">
          <font>
             <Font size="34.0" />
          </font>
       </Label>
-   </children>
-</AnchorPane>
+   </top>
+</BorderPane>

@@ -22,27 +22,27 @@ public class MathoperationControler {
         this.name=name;
     }
 
-    public void setText(){
+    public void setText(String... columns){
         operation.setText("DataFrame "+ name);
         String text=new String("Numbers");
         try {
             if(name.equals("Min")){
-                text = dataFrame.grupby(new String[]{"id"}).min().toString();
+                text = dataFrame.grupby(columns).min().toString();
             }
             else if (name.equals("Max")){
-                text = dataFrame.grupby(new String[]{"id"}).max().toString();
+                text = dataFrame.grupby(columns).max().toString();
             }
             else if(name.equals("Sum")){
-                text = dataFrame.grupby(new String[]{"id"}).sum().toString();
+                text = dataFrame.grupby(columns).sum().toString();
             }
             else if (name.equals("Std")){
-                text = dataFrame.grupby(new String[]{"id"}).std().toString();
+                text = dataFrame.grupby(columns).std().toString();
             }
             else if(name.equals("Mean")){
-                text = dataFrame.grupby(new String[]{"id"}).mean().toString();
+                text = dataFrame.grupby(columns).mean().toString();
             }
             else if (name.equals("Var")){
-                text = dataFrame.grupby(new String[]{"id"}).var().toString();
+                text = dataFrame.grupby(columns).var().toString();
             }
 
         } catch (WrongTypeInColumnException e) {
